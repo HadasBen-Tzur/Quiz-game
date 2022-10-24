@@ -5,13 +5,13 @@ import "./Quetion.css";
 import Questions from "../Quiz/Quiz";
 
 export default function Question({ question, setSelectAnswer, clickCheck }) {
-  function addAnswerHelp() {
-    const help = [];
-    help.push(question.correct_answer);
-    question.incorrect_answers.map((answer) => help.push(answer));
-    return help;
-  }
-  const addAnswer = addAnswerHelp();
+  // function addAnswerHelp() {
+  //   const help = [question.correct_answer, ...question.incorrect_answers];
+  //   // help.push(question.correct_answer);
+  //   // question.incorrect_answers.map((answer) => help.push(answer));
+  //   return help;
+  // }
+  const addAnswer = [question.correct_answer, ...question.incorrect_answers];
   //console.log(addAnswer);
 
   function answerElement(answer) {
@@ -19,8 +19,7 @@ export default function Question({ question, setSelectAnswer, clickCheck }) {
       value: answer,
       isClick: false,
       id: nanoid(),
-      //isCorrect: null,
-      //corectAnswer: question.correct_answer,
+
       isCorrect: question.correct_answer === answer,
     };
   }

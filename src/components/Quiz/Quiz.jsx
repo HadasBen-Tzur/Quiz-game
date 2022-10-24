@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import "./Quiz.css";
 import Question from "../Quetion/Quetion";
+import { useEffect } from "react";
 
 export default function Questions({ questions, handleStart }) {
   const QuestionList = () => {
-    const [isShown, setIsShown] = useState(false);
-    const help = questions.map((q) => {
+    const transform = ({ question, correct_answer }) => {
       return {
-        id: q.question,
-        corectAnswer: q.correct_answer,
+        id: question,
+        corectAnswer: correct_answer,
         selectAnswer: null,
         isCorect: false,
       };
-    });
-    const [selectAnswer, setSelectAnswer] = useState(help);
+    };
+    const [isShown, setIsShown] = useState(false);
+    const [selectAnswer, setSelectAnswer] = useState(questions.map(transform));
     const [clickCheck, setClickCheck] = useState(false);
+
     function checkAnswer() {
       setIsShown(true);
+      setClickCheck(true);
       setSelectAnswer((selectList) => {
-        setClickCheck(true);
         return selectList.map((answer) => {
           if (answer.corectAnswer == answer.selectAnswer) {
             return {

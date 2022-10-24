@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import "./Start.css";
-import Questions from "../Quiz/Quiz";
+import Quiz from "../Quiz/Quiz";
 
 export default function Start() {
   const [data, setData] = useState([]);
   const [hasStarted, setHasStarted] = useState(false);
 
   const handleStart = async () => {
-    const fetchQuestion = async () => {
-      const res = await fetch("https://opentdb.com/api.php?amount=10");
-      const data = await res.json();
-      return data.results;
-    };
+    const { results: questions } = await (
+      await fetch("https://opentdb.com/api.php?amount=10")
+    ).json();
 
-    const questions = await fetchQuestion();
     setData(questions);
     setHasStarted(true);
   };
@@ -31,6 +28,6 @@ export default function Start() {
       </div>
     );
   } else {
-    return <Questions questions={data} handleStart={handleStart} />;
+    return <Quiz questions={data} handleStart={handleStart} />;
   }
 }
